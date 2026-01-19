@@ -1,0 +1,333 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
+
+header {
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    text-align: center;
+    padding: 2rem 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+header p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+/* Navegación */
+nav {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+nav ul li {
+    display: inline-block;
+}
+
+nav button {
+    background: #667eea;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+nav button:hover {
+    background: #764ba2;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+nav button.active {
+    background: #764ba2;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Contenedor principal */
+main {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+/* Secciones */
+section {
+    display: none;
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.5s ease;
+}
+
+section.active {
+    display: block;
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Títulos de sección */
+h2 {
+    color: #667eea;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    border-bottom: 3px solid #764ba2;
+    padding-bottom: 0.5rem;
+}
+
+/* Párrafos */
+p {
+    margin-bottom: 1rem;
+    text-align: justify;
+}
+
+/* Grid de jugadores */
+.jugadores-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+/* Tarjetas de jugadores */
+.jugador-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 1.5rem;
+    border-radius: 12px;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.jugador-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.jugador-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    padding-bottom: 0.5rem;
+}
+
+.jugador-card p {
+    margin: 0.5rem 0;
+    text-align: left;
+}
+
+.jugador-card strong {
+    font-weight: 700;
+}
+
+/* Caja de contacto */
+.contacto-box {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 12px;
+    border-left: 5px solid #667eea;
+    margin-top: 1rem;
+}
+
+.contacto-box p {
+    color: #555;
+}
+
+.contacto-box strong {
+    color: #667eea;
+    font-size: 1.1rem;
+}
+
+/* Enlace de email */
+.email {
+    background: #667eea;
+    color: white;
+    padding: 1rem;
+    border-radius: 8px;
+    display: inline-block;
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.email:hover {
+    background: #764ba2;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 2rem;
+    color: white;
+    margin-top: 3rem;
+    font-size: 0.95rem;
+}
+
+footer p {
+    text-align: center;
+    margin: 0;
+}
+
+/* Responsive - Tablets */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 1.8rem;
+    }
+
+    header p {
+        font-size: 1rem;
+    }
+
+    nav button {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    section {
+        padding: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.6rem;
+    }
+
+    .jugadores-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+}
+
+/* Responsive - Móviles */
+@media (max-width: 480px) {
+    header {
+        padding: 1.5rem 0.5rem;
+    }
+
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    nav {
+        padding: 0.5rem;
+    }
+
+    nav ul {
+        gap: 0.5rem;
+    }
+
+    nav button {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.85rem;
+    }
+
+    section {
+        padding: 1rem;
+    }
+
+    h2 {
+        font-size: 1.4rem;
+    }
+
+    .jugador-card {
+        padding: 1rem;
+    }
+
+    .contacto-box {
+        padding: 1.5rem;
+    }
+
+    .email {
+        font-size: 1rem;
+        padding: 0.8rem;
+    }
+}
+
+/* Estilos adicionales para mejorar la accesibilidad */
+button:focus,
+a:focus {
+    outline: 3px solid #764ba2;
+    outline-offset: 2px;
+}
+
+/* Mejora de contraste para lectura */
+p strong {
+    color: #333;
+}
+
+/* Animación suave para todos los elementos interactivos */
+* {
+    scroll-behavior: smooth;
+}
+
+/* Estilos para impresión */
+@media print {
+    body {
+        background: white;
+    }
+
+    header {
+        background: #333;
+    }
+
+    nav {
+        display: none;
+    }
+
+    section {
+        display: block !important;
+        page-break-after: always;
+        box-shadow: none;
+    }
+
+    .jugador-card {
+        page-break-inside: avoid;
+    }
+}

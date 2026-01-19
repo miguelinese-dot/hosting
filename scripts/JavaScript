@@ -1,0 +1,20 @@
+function mostrarSeccion(seccionId) {
+    // Ocultar todas las secciones
+    const secciones = document.querySelectorAll('section');
+    secciones.forEach(seccion => {
+        seccion.classList.remove('active');
+    });
+
+    // Quitar estado activo de los botones
+    const botones = document.querySelectorAll('nav button');
+    botones.forEach(boton => {
+        boton.classList.remove('active');
+    });
+
+    // Mostrar la sección y botón elegidos
+    document.getElementById(seccionId).classList.add('active');
+    document.getElementById('btn-' + seccionId).classList.add('active');
+
+    // Volver arriba suavemente
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}

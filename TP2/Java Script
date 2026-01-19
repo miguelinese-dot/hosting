@@ -1,0 +1,489 @@
+const appData = {
+    secciones: [
+        {
+            id: 'actual',
+            titulo: 'El Fútbol Actual',
+            boton: 'Fútbol Actual'
+        },
+        {
+            id: 'mejores',
+            titulo: 'Los 3 Mejores Jugadores del Mundo',
+            boton: 'Top 3 Jugadores'
+        },
+        {
+            id: 'contacto',
+            titulo: 'Contacto',
+            boton: 'Contacto'
+        }
+    ],
+    contenido: {
+        actual: {
+            parrafos: [
+                'El fútbol moderno ha experimentado una transformación radical en los últimos años. La evolución táctica, el análisis de datos y la tecnología han revolucionado la forma en que se juega y se entiende este deporte.',
+                'Hoy en día, el fútbol es más dinámico y físico que nunca. Los equipos priorizan la presión alta, la posesión controlada y las transiciones rápidas. La figura del lateral ha evolucionado para convertirse en un elemento ofensivo crucial, mientras que los mediocampistas deben ser versátiles tanto en defensa como en ataque.',
+                'Las grandes ligas europeas como la Premier League, La Liga, la Serie A y la Bundesliga siguen siendo el epicentro del fútbol mundial, atrayendo a los mejores talentos del planeta. Mientras tanto, competiciones como la Champions League y la Copa Mundial continúan siendo los escenarios donde se escriben las páginas más gloriosas del fútbol.',
+                'El fútbol actual también se caracteriza por la creciente importancia del aspecto mental y físico. Los jugadores modernos son atletas completos que cuidan cada detalle de su preparación, desde la nutrición hasta el descanso y la recuperación.'
+            ]
+        },
+        mejores: {
+            intro: 'Estos son, en mi opinión, los tres futbolistas que están marcando la diferencia en el fútbol actual:',
+            jugadores: [
+                {
+                    medalla: '🥇',
+                    nombre: 'Erling Haaland',
+                    equipo: 'Manchester City',
+                    posicion: 'Delantero',
+                    nacionalidad: 'Noruega',
+                    descripcion: 'Una máquina goleadora imparable. Su potencia física, velocidad y instinto depredador en el área lo convierten en el delantero más letal del momento. Ha revolucionado la Premier League con números históricos.'
+                },
+                {
+                    medalla: '🥈',
+                    nombre: 'Kylian Mbappé',
+                    equipo: 'Real Madrid',
+                    posicion: 'Delantero',
+                    nacionalidad: 'Francia',
+                    descripcion: 'Velocidad estratosférica y una técnica sublime. Mbappé combina la rapidez con una inteligencia táctica excepcional. Ya campeón del mundo, está destinado a dominar el fútbol en los próximos años.'
+                },
+                {
+                    medalla: '🥉',
+                    nombre: 'Vinicius Jr.',
+                    equipo: 'Real Madrid',
+                    posicion: 'Extremo',
+                    nacionalidad: 'Brasil',
+                    descripcion: 'El talento brasileño en su máxima expresión. Su regate, desequilibrio y capacidad para decidir partidos importantes lo han convertido en una estrella mundial. Pieza clave en el Real Madrid.'
+                }
+            ]
+        },
+        contacto: {
+            parrafos: [
+                '¿Tienes alguna pregunta, comentario o sugerencia sobre fútbol? ¿Quieres debatir sobre tácticas, jugadores o los últimos resultados?',
+                'No dudes en escribirme. Me encanta intercambiar opiniones con otros aficionados al fútbol y estoy siempre abierto a nuevas perspectivas y análisis.'
+            ],
+            email: 'miguel.sanchez@futbol.com',
+            mensajeFinal: 'Respondo todos los mensajes lo antes posible. ¡Hablemos de fútbol!'
+        }
+    }
+};
+
+// Estilos CSS en JavaScript
+const estilos = `
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+    }
+
+    header {
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        text-align: center;
+        padding: 2rem 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    nav {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 1rem;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    nav ul {
+        list-style: none;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    nav button {
+        background: #667eea;
+        color: white;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+        cursor: pointer;
+        border-radius: 25px;
+        transition: all 0.3s ease;
+        font-weight: 600;
+    }
+
+    nav button:hover {
+        background: #764ba2;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    nav button.active {
+        background: #764ba2;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    main {
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+    }
+
+    section {
+        display: none;
+        background: white;
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        animation: fadeIn 0.5s ease;
+    }
+
+    section.active {
+        display: block;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    h2 {
+        color: #667eea;
+        margin-bottom: 1.5rem;
+        font-size: 2rem;
+        border-bottom: 3px solid #764ba2;
+        padding-bottom: 0.5rem;
+    }
+
+    p {
+        margin-bottom: 1rem;
+    }
+
+    .jugadores-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+
+    .jugador-card {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 1.5rem;
+        border-radius: 12px;
+        color: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease;
+    }
+
+    .jugador-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .jugador-card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .jugador-card p {
+        margin: 0.5rem 0;
+    }
+
+    .contacto-box {
+        background: #f8f9fa;
+        padding: 2rem;
+        border-radius: 12px;
+        border-left: 5px solid #667eea;
+        margin-top: 1rem;
+    }
+
+    .email {
+        background: #667eea;
+        color: white;
+        padding: 1rem;
+        border-radius: 8px;
+        display: inline-block;
+        margin-top: 1rem;
+        font-size: 1.2rem;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .email:hover {
+        background: #764ba2;
+        transform: scale(1.05);
+    }
+
+    footer {
+        text-align: center;
+        padding: 2rem;
+        color: white;
+        margin-top: 3rem;
+    }
+
+    @media (max-width: 768px) {
+        header h1 {
+            font-size: 1.8rem;
+        }
+
+        nav button {
+            padding: 0.6rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        section {
+            padding: 1.5rem;
+        }
+
+        .jugadores-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+`;
+
+// Clase para crear la estructura HTML
+class CreadorHTML {
+    constructor() {
+        this.crearEstructura();
+        this.inyectarEstilos();
+    }
+
+    crearEstructura() {
+        document.title = 'Fútbol con Miguel Sánchez';
+        
+        // Limpiar body
+        document.body.innerHTML = '';
+        
+        // Crear header
+        const header = document.createElement('header');
+        const h1 = document.createElement('h1');
+        h1.textContent = '⚽ Fútbol con Miguel Sánchez';
+        const p = document.createElement('p');
+        p.textContent = 'Tu espacio para el análisis del fútbol mundial';
+        header.appendChild(h1);
+        header.appendChild(p);
+        
+        // Crear nav
+        const nav = document.createElement('nav');
+        const ul = document.createElement('ul');
+        ul.id = 'nav-menu';
+        nav.appendChild(ul);
+        
+        // Crear main
+        const main = document.createElement('main');
+        main.id = 'main-content';
+        
+        // Crear footer
+        const footer = document.createElement('footer');
+        const pFooter = document.createElement('p');
+        pFooter.textContent = 'Fútbol con Miguel Sánchez. Pasión por el fútbol mundial.';
+        footer.appendChild(pFooter);
+        
+        // Añadir todo al body
+        document.body.appendChild(header);
+        document.body.appendChild(nav);
+        document.body.appendChild(main);
+        document.body.appendChild(footer);
+    }
+
+    inyectarEstilos() {
+        const style = document.createElement('style');
+        style.textContent = estilos;
+        document.head.appendChild(style);
+    }
+}
+
+// Clase para manejar la navegación
+class NavegadorWeb {
+    constructor() {
+        this.seccionActual = 'actual';
+        this.inicializar();
+    }
+
+    inicializar() {
+        this.crearNavegacion();
+        this.crearContenido();
+        this.mostrarSeccion(this.seccionActual);
+        this.animarEntrada();
+    }
+
+    crearNavegacion() {
+        const navMenu = document.getElementById('nav-menu');
+        navMenu.innerHTML = '';
+
+        appData.secciones.forEach(seccion => {
+            const li = document.createElement('li');
+            const button = document.createElement('button');
+            button.textContent = seccion.boton;
+            button.id = `btn-${seccion.id}`;
+            button.className = seccion.id === this.seccionActual ? 'active' : '';
+            button.addEventListener('click', () => this.mostrarSeccion(seccion.id));
+            li.appendChild(button);
+            navMenu.appendChild(li);
+        });
+    }
+
+    crearContenido() {
+        const mainContent = document.getElementById('main-content');
+        mainContent.innerHTML = '';
+
+        appData.secciones.forEach(seccion => {
+            const section = document.createElement('section');
+            section.id = seccion.id;
+            section.className = seccion.id === this.seccionActual ? 'active' : '';
+
+            const h2 = document.createElement('h2');
+            h2.textContent = seccion.titulo;
+            section.appendChild(h2);
+
+            if (seccion.id === 'actual') {
+                this.crearSeccionActual(section);
+            } else if (seccion.id === 'mejores') {
+                this.crearSeccionMejores(section);
+            } else if (seccion.id === 'contacto') {
+                this.crearSeccionContacto(section);
+            }
+
+            mainContent.appendChild(section);
+        });
+    }
+
+    crearSeccionActual(section) {
+        appData.contenido.actual.parrafos.forEach(texto => {
+            const p = document.createElement('p');
+            p.textContent = texto;
+            section.appendChild(p);
+        });
+    }
+
+    crearSeccionMejores(section) {
+        const intro = document.createElement('p');
+        intro.textContent = appData.contenido.mejores.intro;
+        section.appendChild(intro);
+
+        const grid = document.createElement('div');
+        grid.className = 'jugadores-grid';
+
+        appData.contenido.mejores.jugadores.forEach(jugador => {
+            const card = document.createElement('div');
+            card.className = 'jugador-card';
+
+            const h3 = document.createElement('h3');
+            h3.textContent = `${jugador.medalla} ${jugador.nombre}`;
+            card.appendChild(h3);
+
+            const campos = [
+                { label: 'Equipo', valor: jugador.equipo },
+                { label: 'Posición', valor: jugador.posicion },
+                { label: 'Nacionalidad', valor: jugador.nacionalidad }
+            ];
+
+            campos.forEach(campo => {
+                const p = document.createElement('p');
+                const strong = document.createElement('strong');
+                strong.textContent = `${campo.label}: `;
+                p.appendChild(strong);
+                p.appendChild(document.createTextNode(campo.valor));
+                card.appendChild(p);
+            });
+
+            const desc = document.createElement('p');
+            desc.textContent = jugador.descripcion;
+            card.appendChild(desc);
+
+            grid.appendChild(card);
+        });
+
+        section.appendChild(grid);
+    }
+
+    crearSeccionContacto(section) {
+        const contactoBox = document.createElement('div');
+        contactoBox.className = 'contacto-box';
+
+        appData.contenido.contacto.parrafos.forEach(texto => {
+            const p = document.createElement('p');
+            p.textContent = texto;
+            contactoBox.appendChild(p);
+        });
+
+        const pEmail = document.createElement('p');
+        const strong = document.createElement('strong');
+        strong.textContent = 'Escríbeme a:';
+        pEmail.appendChild(strong);
+        contactoBox.appendChild(pEmail);
+
+        const emailLink = document.createElement('a');
+        emailLink.href = `mailto:${appData.contenido.contacto.email}`;
+        emailLink.className = 'email';
+        emailLink.textContent = `📧 ${appData.contenido.contacto.email}`;
+        contactoBox.appendChild(emailLink);
+
+        const pFinal = document.createElement('p');
+        pFinal.style.marginTop = '1.5rem';
+        pFinal.textContent = appData.contenido.contacto.mensajeFinal;
+        contactoBox.appendChild(pFinal);
+
+        section.appendChild(contactoBox);
+    }
+
+    mostrarSeccion(seccionId) {
+        const secciones = document.querySelectorAll('section');
+        secciones.forEach(seccion => {
+            seccion.classList.remove('active');
+        });
+
+        const botones = document.querySelectorAll('nav button');
+        botones.forEach(boton => {
+            boton.classList.remove('active');
+        });
+
+        const seccionActiva = document.getElementById(seccionId);
+        if (seccionActiva) {
+            seccionActiva.classList.add('active');
+        }
+
+        const botonActivo = document.getElementById(`btn-${seccionId}`);
+        if (botonActivo) {
+            botonActivo.classList.add('active');
+        }
+
+        this.seccionActual = seccionId;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    animarEntrada() {
+        const header = document.querySelector('header');
+        header.style.animation = 'fadeIn 1s ease';
+    }
+}
+
+// Inicializar la aplicación
+function iniciarApp() {
+    new CreadorHTML();
+    new NavegadorWeb();
+}
+
+// Ejecutar cuando el DOM esté listo
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', iniciarApp);
+} else {
+    iniciarApp();
+}

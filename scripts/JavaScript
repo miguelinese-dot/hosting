@@ -1,187 +1,364 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Análisis de fútbol mundial, jugadores destacados y contenido interactivo">
-    <meta name="keywords" content="fútbol, soccer, análisis, jugadores, Haaland, Mbappé, Vinicius">
-    <meta name="author" content="Miguel Sánchez">
-    <title>Fútbol con Miguel Sánchez</title>
-    
-    <!-- Google Fonts - Fuente distintiva -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    
-    <!-- Hoja de estilos externa -->
-    <link rel="stylesheet" href="styles/style.css">
-</head>
-<body>
-    <!-- Header con balón en movimiento -->
-    <header>
-        <div id="balon-movimiento">⚽</div>
-        <h1>⚽ Fútbol con Miguel Sánchez</h1>
-        <p>Tu espacio para el análisis del fútbol mundial</p>
-    </header>
+import React, { useState, useEffect } from 'react';
 
-    <!-- Navegación -->
-    <nav>
-        <ul>
-            <li><button onclick="mostrarSeccion('actual')" class="active" id="btn-actual">Fútbol Actual</button></li>
-            <li><button onclick="mostrarSeccion('interactivo')" id="btn-interactivo">Sección Interactiva</button></li>
-            <li><button onclick="mostrarSeccion('mejores')" id="btn-mejores">Top 3 Jugadores</button></li>
-            <li><button onclick="mostrarSeccion('contacto')" id="btn-contacto">Contacto</button></li>
+export default function FutbolMiguel() {
+  const [seccionActiva, setSeccionActiva] = useState('actual');
+  const [nombreUsuario, setNombreUsuario] = useState('');
+  const [mensajePersonalizado, setMensajePersonalizado] = useState({
+    texto: '¡Hola aficionado al fútbol! 👋',
+    background: 'white',
+    color: '#764ba2'
+  });
+  const [imagenesActuales, setImagenesActuales] = useState([0, 0]);
+
+  const imagenesAlternativas = [
+    [
+      'https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=400&h=300&fit=crop',
+      'https://images.unsplash.com/photo-1614632537423-1e6c2e7e0aab?w=400&h=300&fit=crop'
+    ],
+    [
+      'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=400&h=300&fit=crop',
+      'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=400&h=300&fit=crop'
+    ]
+  ];
+
+  const mostrarSeccion = (seccionId) => {
+    setSeccionActiva(seccionId);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const cambiarImagen = (indice) => {
+    setImagenesActuales(prev => {
+      const nuevo = [...prev];
+      nuevo[indice] = (nuevo[indice] + 1) % imagenesAlternativas[indice].length;
+      return nuevo;
+    });
+  };
+
+  const actualizarMensaje = () => {
+    const nombre = nombreUsuario.trim();
+    if (nombre) {
+      setMensajePersonalizado({
+        texto: `¡Hola ${nombre}! ⚽ Bienvenido al mundo del fútbol`,
+        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        color: 'white'
+      });
+    } else {
+      setMensajePersonalizado({
+        texto: '¡Hola aficionado al fútbol! 👋',
+        background: 'white',
+        color: '#764ba2'
+      });
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      actualizarMensaje();
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-indigo-500 to-purple-600 overflow-x-hidden">
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;700&display=swap');
+        
+        * {
+          font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .bebas {
+          font-family: 'Bebas Neue', cursive;
+        }
+
+        @keyframes moverBalon {
+          0% {
+            left: -50px;
+            transform: translateY(-50%) rotate(0deg);
+          }
+          100% {
+            left: 100%;
+            transform: translateY(-50%) rotate(720deg);
+          }
+        }
+
+        .balon-animado {
+          animation: moverBalon 8s linear infinite;
+        }
+
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        .fade-in {
+          animation: fadeIn 0.5s ease;
+        }
+
+        .imagen-transicion {
+          transition: opacity 0.5s ease;
+        }
+      `}</style>
+
+      {/* Header */}
+      <header className="bg-black bg-opacity-80 text-white text-center py-8 px-4 shadow-lg relative">
+        <div className="absolute w-10 h-10 text-4xl top-1/2 left-0 balon-animado">⚽</div>
+        <h1 className="bebas text-5xl mb-2 tracking-wider" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.5)' }}>
+          ⚽ Fútbol con Miguel Sánchez
+        </h1>
+        <p className="text-lg opacity-90">Tu espacio para el análisis del fútbol mundial</p>
+      </header>
+
+      {/* Navigation */}
+      <nav className="bg-white bg-opacity-95 p-4 sticky top-0 z-50 shadow-md">
+        <ul className="flex justify-center flex-wrap gap-4">
+          {[
+            { id: 'actual', label: 'Fútbol Actual' },
+            { id: 'interactivo', label: 'Sección Interactiva' },
+            { id: 'mejores', label: 'Top 3 Jugadores' },
+            { id: 'contacto', label: 'Contacto' }
+          ].map(seccion => (
+            <li key={seccion.id}>
+              <button
+                onClick={() => mostrarSeccion(seccion.id)}
+                className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
+                  seccionActiva === seccion.id
+                    ? 'bg-purple-600 text-white shadow-lg'
+                    : 'bg-indigo-500 text-white hover:bg-purple-600 hover:-translate-y-0.5 hover:shadow-lg'
+                }`}
+              >
+                {seccion.label}
+              </button>
+            </li>
+          ))}
         </ul>
-    </nav>
+      </nav>
 
-    <!-- Contenido principal -->
-    <main>
-        <!-- Sección: Fútbol Actual -->
-        <section id="actual" class="active">
-            <h2>El Fútbol Actual</h2>
-            <p>El fútbol moderno ha experimentado una transformación radical en los últimos años. La evolución táctica, el análisis de datos y la tecnología han revolucionado la forma en que se juega y se entiende este deporte.</p>
-            
-            <!-- Imagen decorativa -->
-            <img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=800&h=400&fit=crop" 
-                 alt="Estadio de fútbol moderno lleno de aficionados" 
-                 class="imagen-decorativa">
-            
-            <p>Hoy en día, el fútbol es más dinámico y físico que nunca. Los equipos priorizan la presión alta, la posesión controlada y las transiciones rápidas. La figura del lateral ha evolucionado para convertirse en un elemento ofensivo crucial, mientras que los mediocampistas deben ser versátiles tanto en defensa como en ataque.</p>
-            
-            <p>Las grandes ligas europeas como la Premier League, La Liga, la Serie A y la Bundesliga siguen siendo el epicentro del fútbol mundial, atrayendo a los mejores talentos del planeta. Mientras tanto, competiciones como la Champions League y la Copa Mundial continúan siendo los escenarios donde se escriben las páginas más gloriosas del fútbol.</p>
-            
-            <p>El fútbol actual también se caracteriza por la creciente importancia del aspecto mental y físico. Los jugadores modernos son atletas completos que cuidan cada detalle de su preparación, desde la nutrición hasta el descanso y la recuperación.</p>
-
-            <!-- Enlaces externos con accesibilidad -->
-            <div class="enlaces-externos">
-                <h3>Enlaces de interés:</h3>
-                <a href="https://www.uefa.com" 
-                   target="_blank" 
-                   rel="noopener noreferrer" 
-                   title="Visitar sitio oficial de la UEFA - Abre en ventana nueva">
-                   🏆 UEFA Official
-                </a>
-                <a href="https://www.fifa.com" 
-                   target="_blank" 
-                   rel="noopener noreferrer" 
-                   title="Visitar sitio oficial de FIFA - Abre en ventana nueva">
-                   🌍 FIFA Official
-                </a>
-                <a href="https://github.com/miguelinese-dot/hosting" 
-                   target="_blank" 
-                   rel="noopener noreferrer" 
-                   title="Ver repositorio del proyecto en GitHub - Abre en ventana nueva">
-                   💻 Ver Repositorio GitHub
-                </a>
-            </div>
-        </section>
-
-        <!-- Sección Interactiva: JS Campo de texto + Intercambio de imágenes -->
-        <section id="interactivo">
-            <h2>Sección Interactiva</h2>
-            
-            <!-- Campo de texto interactivo -->
-            <div class="personalizacion">
-                <h3>🎯 Personaliza tu Mensaje</h3>
-                <label for="nombre-usuario">Introduce tu nombre:</label>
-                <input type="text" 
-                       id="nombre-usuario" 
-                       placeholder="Tu nombre aquí..." 
-                       aria-label="Campo para introducir tu nombre">
-                <button onclick="actualizarMensaje()">Actualizar Mensaje</button>
-                <div id="mensaje-personalizado">¡Hola aficionado al fútbol! 👋</div>
-            </div>
-
-            <!-- Galería de imágenes intercambiables -->
-            <h3>📸 Galería de Imágenes (Click para cambiar)</h3>
-            <p style="text-align: center; color: #667eea; font-weight: bold;">
-                Haz clic en cada imagen para ver una alternativa
+      {/* Main Content */}
+      <main className="max-w-6xl mx-auto my-8 px-4">
+        {/* Sección Fútbol Actual */}
+        {seccionActiva === 'actual' && (
+          <section className="bg-white p-8 rounded-2xl shadow-2xl fade-in">
+            <h2 className="bebas text-4xl text-indigo-500 mb-6 border-b-4 border-purple-600 pb-2 tracking-wide">
+              El Fútbol Actual
+            </h2>
+            <p className="mb-4 text-justify">
+              El fútbol moderno ha experimentado una transformación radical en los últimos años. La evolución táctica, el análisis de datos y la tecnología han revolucionado la forma en que se juega y se entiende este deporte.
             </p>
             
-            <div class="galeria-imagenes">
-                <div class="imagen-container" onclick="cambiarImagen(0)">
-                    <img id="img-0" 
-                         src="https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=400&h=300&fit=crop" 
-                         alt="Balón de fútbol sobre césped">
-                    <p>⚽ Balón de Fútbol</p>
-                </div>
-                
-                <div class="imagen-container" onclick="cambiarImagen(1)">
-                    <img id="img-1" 
-                         src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=400&h=300&fit=crop" 
-                         alt="Vista de estadio lleno de aficionados">
-                    <p>🏟️ Estadio Lleno</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Sección: Top 3 Jugadores -->
-        <section id="mejores">
-            <h2>Los 3 Mejores Jugadores del Mundo</h2>
-            <p>Estos son, en mi opinión, los tres futbolistas que están marcando la diferencia en el fútbol actual:</p>
+            <img 
+              src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=800&h=400&fit=crop" 
+              alt="Estadio de fútbol moderno" 
+              className="w-full max-w-3xl mx-auto my-8 rounded-xl shadow-xl"
+            />
             
-            <div class="jugadores-grid">
-                <div class="jugador-card">
-                    <h3>🥇 Erling Haaland</h3>
-                    <p><strong>Equipo:</strong> Manchester City</p>
-                    <p><strong>Posición:</strong> Delantero</p>
-                    <p><strong>Nacionalidad:</strong> Noruega</p>
-                    <p>Una máquina goleadora imparable. Su potencia física, velocidad y instinto depredador en el área lo convierten en el delantero más letal del momento. Ha revolucionado la Premier League con números históricos.</p>
-                </div>
+            <p className="mb-4 text-justify">
+              Hoy en día, el fútbol es más dinámico y físico que nunca. Los equipos priorizan la presión alta, la posesión controlada y las transiciones rápidas. La figura del lateral ha evolucionado para convertirse en un elemento ofensivo crucial, mientras que los mediocampistas deben ser versátiles tanto en defensa como en ataque.
+            </p>
+            
+            <p className="mb-4 text-justify">
+              Las grandes ligas europeas como la Premier League, La Liga, la Serie A y la Bundesliga siguen siendo el epicentro del fútbol mundial, atrayendo a los mejores talentos del planeta. Mientras tanto, competiciones como la Champions League y la Copa Mundial continúan siendo los escenarios donde se escriben las páginas más gloriosas del fútbol.
+            </p>
+            
+            <p className="mb-4 text-justify">
+              El fútbol actual también se caracteriza por la creciente importancia del aspecto mental y físico. Los jugadores modernos son atletas completos que cuidan cada detalle de su preparación, desde la nutrición hasta el descanso y la recuperación.
+            </p>
 
-                <div class="jugador-card">
-                    <h3>🥈 Kylian Mbappé</h3>
-                    <p><strong>Equipo:</strong> Real Madrid</p>
-                    <p><strong>Posición:</strong> Delantero</p>
-                    <p><strong>Nacionalidad:</strong> Francia</p>
-                    <p>Velocidad estratosférica y una técnica sublime. Mbappé combina la rapidez con una inteligencia táctica excepcional. Ya campeón del mundo, está destinado a dominar el fútbol en los próximos años.</p>
-                </div>
-
-                <div class="jugador-card">
-                    <h3>🥉 Vinicius Jr.</h3>
-                    <p><strong>Equipo:</strong> Real Madrid</p>
-                    <p><strong>Posición:</strong> Extremo</p>
-                    <p><strong>Nacionalidad:</strong> Brasil</p>
-                    <p>El talento brasileño en su máxima expresión. Su regate, desequilibrio y capacidad para decidir partidos importantes lo han convertido en una estrella mundial. Pieza clave en el Real Madrid.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Sección: Contacto -->
-        <section id="contacto">
-            <h2>Contacto</h2>
-            <div class="contacto-box">
-                <p>¿Tienes alguna pregunta, comentario o sugerencia sobre fútbol? ¿Quieres debatir sobre tácticas, jugadores o los últimos resultados?</p>
-                
-                <p>No dudes en escribirme. Me encanta intercambiar opiniones con otros aficionados al fútbol y estoy siempre abierto a nuevas perspectivas y análisis.</p>
-                
-                <p><strong>Escríbeme a:</strong></p>
-                <a href="mailto:miguel.sanchez@futbol.com" 
-                   class="email" 
-                   title="Enviar correo electrónico a Miguel Sánchez">
-                   📧 miguel.sanchez@futbol.com
+            <div className="bg-indigo-50 p-6 rounded-xl my-8">
+              <h3 className="text-xl font-bold mb-4">Enlaces de interés:</h3>
+              <div className="flex flex-wrap gap-4">
+                <a 
+                  href="https://www.uefa.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-block px-6 py-3 bg-indigo-500 text-white rounded-lg font-semibold hover:bg-purple-600 hover:-translate-y-0.5 transition-all duration-300"
+                >
+                  UEFA Official
                 </a>
-                
-                <p style="margin-top: 1.5rem;">Respondo todos los mensajes lo antes posible. ¡Hablemos de fútbol!</p>
+                <a 
+                  href="https://www.fifa.com" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-block px-6 py-3 bg-indigo-500 text-white rounded-lg font-semibold hover:bg-purple-600 hover:-translate-y-0.5 transition-all duration-300"
+                >
+                  FIFA Official
+                </a>
+                <a 
+                  href="https://github.com/miguelinese-dot/hosting" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-block px-6 py-3 bg-indigo-500 text-white rounded-lg font-semibold hover:bg-purple-600 hover:-translate-y-0.5 transition-all duration-300"
+                >
+                  Ver Repositorio GitHub
+                </a>
+              </div>
             </div>
-        </section>
-    </main>
+          </section>
+        )}
 
-    <!-- Footer -->
-    <footer>
+        {/* Sección Interactiva */}
+        {seccionActiva === 'interactivo' && (
+          <section className="bg-white p-8 rounded-2xl shadow-2xl fade-in">
+            <h2 className="bebas text-4xl text-indigo-500 mb-6 border-b-4 border-purple-600 pb-2 tracking-wide">
+              Sección Interactiva
+            </h2>
+            
+            <div className="bg-indigo-50 p-6 rounded-xl my-8 border-l-4 border-indigo-500">
+              <h3 className="text-xl font-bold mb-4">🎯 Personaliza tu Mensaje</h3>
+              <label className="block font-bold mb-2 text-indigo-500">Introduce tu nombre:</label>
+              <input 
+                type="text" 
+                value={nombreUsuario}
+                onChange={(e) => setNombreUsuario(e.target.value)}
+                onKeyPress={handleKeyPress}
+                placeholder="Tu nombre aquí..."
+                className="w-full p-3 border-2 border-indigo-500 rounded-lg text-base mb-4"
+              />
+              <button 
+                onClick={actualizarMensaje}
+                className="bg-indigo-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-purple-600 hover:scale-105 transition-all duration-300"
+              >
+                Actualizar Mensaje
+              </button>
+              <div 
+                className="text-xl font-bold mt-4 p-4 rounded-lg text-center min-h-[50px] flex items-center justify-center"
+                style={{ 
+                  background: mensajePersonalizado.background,
+                  color: mensajePersonalizado.color 
+                }}
+              >
+                {mensajePersonalizado.texto}
+              </div>
+            </div>
+
+            <h3 className="text-xl font-bold mb-2">📸 Galería de Imágenes (Click para cambiar)</h3>
+            <p className="text-center text-indigo-500 font-bold mb-6">
+              Haz clic en cada imagen para ver una alternativa
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 my-8">
+              <div 
+                className="text-center cursor-pointer hover:scale-105 transition-transform duration-300"
+                onClick={() => cambiarImagen(0)}
+              >
+                <img 
+                  src={imagenesAlternativas[0][imagenesActuales[0]]}
+                  alt="Balón de fútbol"
+                  className="w-full h-64 object-cover rounded-xl shadow-lg imagen-transicion"
+                />
+                <p className="mt-2 font-bold text-indigo-500">Balón de Fútbol</p>
+              </div>
+              
+              <div 
+                className="text-center cursor-pointer hover:scale-105 transition-transform duration-300"
+                onClick={() => cambiarImagen(1)}
+              >
+                <img 
+                  src={imagenesAlternativas[1][imagenesActuales[1]]}
+                  alt="Estadio lleno"
+                  className="w-full h-64 object-cover rounded-xl shadow-lg imagen-transicion"
+                />
+                <p className="mt-2 font-bold text-indigo-500">Estadio Lleno</p>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Sección Top 3 Jugadores */}
+        {seccionActiva === 'mejores' && (
+          <section className="bg-white p-8 rounded-2xl shadow-2xl fade-in">
+            <h2 className="bebas text-4xl text-indigo-500 mb-6 border-b-4 border-purple-600 pb-2 tracking-wide">
+              Los 3 Mejores Jugadores del Mundo
+            </h2>
+            <p className="mb-8">
+              Estos son, en mi opinión, los tres futbolistas que están marcando la diferencia en el fútbol actual:
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="bg-gradient-to-br from-indigo-500 to-purple-600 p-6 rounded-xl text-white shadow-lg hover:-translate-y-2 transition-transform duration-300">
+                <h3 className="bebas text-3xl mb-2">🥇 Erling Haaland</h3>
+                <p className="my-2"><strong>Equipo:</strong> Manchester City</p>
+                <p className="my-2"><strong>Posición:</strong> Delantero</p>
+                <p className="my-2"><strong>Nacionalidad:</strong> Noruega</p>
+                <p className="my-2 text-left">
+                  Una máquina goleadora imparable. Su potencia física, velocidad y instinto depredador en el área lo convierten en el delantero más letal del momento. Ha revolucionado la Premier League con números históricos.
+                </p>
+              </div>
+
+              <div className="bg-gradient-to-br from-indigo-500 to-purple-600 p-6 rounded-xl text-white shadow-lg hover:-translate-y-2 transition-transform duration-300">
+                <h3 className="bebas text-3xl mb-2">🥈 Kylian Mbappé</h3>
+                <p className="my-2"><strong>Equipo:</strong> Real Madrid</p>
+                <p className="my-2"><strong>Posición:</strong> Delantero</p>
+                <p className="my-2"><strong>Nacionalidad:</strong> Francia</p>
+                <p className="my-2 text-left">
+                  Velocidad estratosférica y una técnica sublime. Mbappé combina la rapidez con una inteligencia táctica excepcional. Ya campeón del mundo, está destinado a dominar el fútbol en los próximos años.
+                </p>
+              </div>
+
+              <div className="bg-gradient-to-br from-indigo-500 to-purple-600 p-6 rounded-xl text-white shadow-lg hover:-translate-y-2 transition-transform duration-300">
+                <h3 className="bebas text-3xl mb-2">🥉 Vinicius Jr.</h3>
+                <p className="my-2"><strong>Equipo:</strong> Real Madrid</p>
+                <p className="my-2"><strong>Posición:</strong> Extremo</p>
+                <p className="my-2"><strong>Nacionalidad:</strong> Brasil</p>
+                <p className="my-2 text-left">
+                  El talento brasileño en su máxima expresión. Su regate, desequilibrio y capacidad para decidir partidos importantes lo han convertido en una estrella mundial. Pieza clave en el Real Madrid.
+                </p>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Sección Contacto */}
+        {seccionActiva === 'contacto' && (
+          <section className="bg-white p-8 rounded-2xl shadow-2xl fade-in">
+            <h2 className="bebas text-4xl text-indigo-500 mb-6 border-b-4 border-purple-600 pb-2 tracking-wide">
+              Contacto
+            </h2>
+            <div className="bg-gray-50 p-8 rounded-xl border-l-4 border-indigo-500">
+              <p className="mb-4">
+                ¿Tienes alguna pregunta, comentario o sugerencia sobre fútbol? ¿Quieres debatir sobre tácticas, jugadores o los últimos resultados?
+              </p>
+              
+              <p className="mb-4">
+                No dudes en escribirme. Me encanta intercambiar opiniones con otros aficionados al fútbol y estoy siempre abierto a nuevas perspectivas y análisis.
+              </p>
+              
+              <p className="mb-4"><strong>Escríbeme a:</strong></p>
+              <a 
+                href="mailto:miguel.sanchez@futbol.com" 
+                className="inline-block bg-indigo-500 text-white px-6 py-4 rounded-lg text-xl hover:bg-purple-600 hover:scale-105 transition-all duration-300"
+              >
+                📧 miguel.sanchez@futbol.com
+              </a>
+              
+              <p className="mt-6">
+                Respondo todos los mensajes lo antes posible. ¡Hablemos de fútbol!
+              </p>
+            </div>
+          </section>
+        )}
+      </main>
+
+      {/* Footer */}
+      <footer className="text-center py-8 text-white mt-12">
         <p>&copy; 2024 Fútbol con Miguel Sánchez. Pasión por el fútbol mundial.</p>
-        <p>
-            Proyecto bajo 
-            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" 
-               target="_blank" 
-               rel="noopener noreferrer" 
-               title="Ver detalles de la Licencia Creative Commons BY-NC-SA 4.0 - Abre en ventana nueva">
-               Licencia CC BY-NC-SA 4.0
-            </a>
+        <p className="mt-2">
+          Proyecto bajo{' '}
+          <a 
+            href="https://creativecommons.org/licenses/by-nc-sa/4.0/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="underline"
+          >
+            Licencia CC BY-NC-SA 4.0
+          </a>
         </p>
-    </footer>
-
-    <!-- Script JavaScript externo -->
-    <script src="scripts/main.js"></script>
-</body>
-</html>
+      </footer>
+    </div>
+  );
+}

@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fútbol con Miguel Sánchez</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,11 +15,12 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #333;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
         header {
@@ -25,12 +29,42 @@
             text-align: center;
             padding: 2rem 1rem;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            position: relative;
         }
 
         header h1 {
-            font-size: 2.5rem;
+            font-family: 'Bebas Neue', cursive;
+            font-size: 3rem;
             margin-bottom: 0.5rem;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            letter-spacing: 2px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Balón en movimiento */
+        #balon-movimiento {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            font-size: 40px;
+            top: 50%;
+            left: 0;
+            animation: moverBalon 8s linear infinite;
+        }
+
+        @keyframes moverBalon {
+            0% {
+                left: -50px;
+                transform: translateY(-50%) rotate(0deg);
+            }
+            100% {
+                left: 100%;
+                transform: translateY(-50%) rotate(720deg);
+            }
         }
 
         nav {
@@ -104,11 +138,116 @@
         }
 
         h2 {
+            font-family: 'Bebas Neue', cursive;
             color: #667eea;
             margin-bottom: 1.5rem;
-            font-size: 2rem;
+            font-size: 2.5rem;
             border-bottom: 3px solid #764ba2;
             padding-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+
+        /* Sección de personalización */
+        .personalizacion {
+            background: #f0f4ff;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+            border-left: 5px solid #667eea;
+        }
+
+        .personalizacion label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #667eea;
+        }
+
+        .personalizacion input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .personalizacion button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .personalizacion button:hover {
+            background: #764ba2;
+            transform: scale(1.05);
+        }
+
+        #mensaje-personalizado {
+            font-size: 1.3rem;
+            color: #764ba2;
+            font-weight: bold;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            text-align: center;
+            min-height: 50px;
+        }
+
+        /* Galería de imágenes intercambiables */
+        .galeria-imagenes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .imagen-container {
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .imagen-container:hover {
+            transform: scale(1.05);
+        }
+
+        .imagen-container img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .imagen-container p {
+            margin-top: 0.5rem;
+            font-weight: bold;
+            color: #667eea;
+            text-align: center;
+        }
+
+        /* Imagen estática decorativa */
+        .imagen-decorativa {
+            width: 100%;
+            max-width: 800px;
+            margin: 2rem auto;
+            display: block;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
         }
 
         .jugadores-grid {
@@ -132,12 +271,14 @@
         }
 
         .jugador-card h3 {
-            font-size: 1.5rem;
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.8rem;
             margin-bottom: 0.5rem;
         }
 
         .jugador-card p {
             margin: 0.5rem 0;
+            text-align: left;
         }
 
         .contacto-box {
@@ -165,6 +306,30 @@
             transform: scale(1.05);
         }
 
+        .enlaces-externos {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: #f0f4ff;
+            border-radius: 10px;
+        }
+
+        .enlaces-externos a {
+            display: inline-block;
+            margin: 0.5rem 1rem 0.5rem 0;
+            padding: 0.8rem 1.5rem;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .enlaces-externos a:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+
         footer {
             text-align: center;
             padding: 2rem;
@@ -172,9 +337,14 @@
             margin-top: 3rem;
         }
 
+        footer a {
+            color: white;
+            text-decoration: underline;
+        }
+
         @media (max-width: 768px) {
             header h1 {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
 
             nav button {
@@ -189,11 +359,18 @@
             .jugadores-grid {
                 grid-template-columns: 1fr;
             }
+
+            #balon-movimiento {
+                width: 30px;
+                height: 30px;
+                font-size: 30px;
+            }
         }
     </style>
 </head>
 <body>
     <header>
+        <div id="balon-movimiento">⚽</div>
         <h1>⚽ Fútbol con Miguel Sánchez</h1>
         <p>Tu espacio para el análisis del fútbol mundial</p>
     </header>
@@ -201,6 +378,7 @@
     <nav>
         <ul>
             <li><button onclick="mostrarSeccion('actual')" class="active" id="btn-actual">Fútbol Actual</button></li>
+            <li><button onclick="mostrarSeccion('interactivo')" id="btn-interactivo">Sección Interactiva</button></li>
             <li><button onclick="mostrarSeccion('mejores')" id="btn-mejores">Top 3 Jugadores</button></li>
             <li><button onclick="mostrarSeccion('contacto')" id="btn-contacto">Contacto</button></li>
         </ul>
@@ -211,11 +389,47 @@
             <h2>El Fútbol Actual</h2>
             <p>El fútbol moderno ha experimentado una transformación radical en los últimos años. La evolución táctica, el análisis de datos y la tecnología han revolucionado la forma en que se juega y se entiende este deporte.</p>
             
+            <img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=800&h=400&fit=crop" alt="Estadio de fútbol moderno" class="imagen-decorativa">
+            
             <p>Hoy en día, el fútbol es más dinámico y físico que nunca. Los equipos priorizan la presión alta, la posesión controlada y las transiciones rápidas. La figura del lateral ha evolucionado para convertirse en un elemento ofensivo crucial, mientras que los mediocampistas deben ser versátiles tanto en defensa como en ataque.</p>
             
             <p>Las grandes ligas europeas como la Premier League, La Liga, la Serie A y la Bundesliga siguen siendo el epicentro del fútbol mundial, atrayendo a los mejores talentos del planeta. Mientras tanto, competiciones como la Champions League y la Copa Mundial continúan siendo los escenarios donde se escriben las páginas más gloriosas del fútbol.</p>
             
             <p>El fútbol actual también se caracteriza por la creciente importancia del aspecto mental y físico. Los jugadores modernos son atletas completos que cuidan cada detalle de su preparación, desde la nutrición hasta el descanso y la recuperación.</p>
+
+            <div class="enlaces-externos">
+                <h3>Enlaces de interés:</h3>
+                <a href="https://www.uefa.com" target="_blank" rel="noopener noreferrer" title="Visitar sitio oficial de la UEFA">UEFA Official</a>
+                <a href="https://www.fifa.com" target="_blank" rel="noopener noreferrer" title="Visitar sitio oficial de FIFA">FIFA Official</a>
+                <a href="https://github.com/miguelinese-dot/hosting" target="_blank" rel="noopener noreferrer" title="Ver repositorio del proyecto en GitHub">Ver Repositorio GitHub</a>
+            </div>
+        </section>
+
+        <section id="interactivo">
+            <h2>Sección Interactiva</h2>
+            
+            <div class="personalizacion">
+                <h3>🎯 Personaliza tu Mensaje</h3>
+                <label for="nombre-usuario">Introduce tu nombre:</label>
+                <input type="text" id="nombre-usuario" placeholder="Tu nombre aquí...">
+                <button onclick="actualizarMensaje()">Actualizar Mensaje</button>
+                <div id="mensaje-personalizado">¡Hola aficionado al fútbol! 👋</div>
+            </div>
+
+            <h3>📸 Galería de Imágenes (Click para cambiar)</h3>
+            <p style="text-align: center; color: #667eea; font-weight: bold;">Haz clic en cada imagen para ver una alternativa</p>
+            
+            <div class="galeria-imagenes">
+                <div class="imagen-container" onclick="cambiarImagen(0)">
+                    <img id="img-0" src="https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=400&h=300&fit=crop" alt="Balón de fútbol">
+                    <p>Balón de Fútbol</p>
+                </div>
+                
+                <div class="imagen-container" onclick="cambiarImagen(1)">
+                    <img id="img-1" src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=400&h=300&fit=crop" alt="Estadio lleno">
+                    <p>Estadio Lleno</p>
+                </div>
+            </div>
         </section>
 
         <section id="mejores">
@@ -266,37 +480,77 @@
 
     <footer>
         <p>&copy; 2024 Fútbol con Miguel Sánchez. Pasión por el fútbol mundial.</p>
+        <p>Proyecto bajo <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer" title="Ver licencia Creative Commons">Licencia CC BY-NC-SA 4.0</a></p>
     </footer>
 
     <script>
+        // Función para mostrar secciones
         function mostrarSeccion(seccionId) {
-            // Ocultar todas las secciones
             const secciones = document.querySelectorAll('section');
             secciones.forEach(seccion => {
                 seccion.classList.remove('active');
             });
-
-            // Remover clase active de todos los botones
+            
             const botones = document.querySelectorAll('nav button');
             botones.forEach(boton => {
                 boton.classList.remove('active');
             });
-
-            // Mostrar la sección seleccionada
-            document.getElementById(seccionId).classList.add('active');
             
-            // Añadir clase active al botón correspondiente
+            document.getElementById(seccionId).classList.add('active');
             document.getElementById('btn-' + seccionId).classList.add('active');
-
-            // Scroll suave hacia arriba
+            
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Animación de entrada al cargar la página
-        window.addEventListener('load', () => {
-            document.querySelector('header').style.animation = 'fadeIn 1s ease';
+        // Arrays de imágenes alternativas
+        const imagenesAlternativas = [
+            [
+                'https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=400&h=300&fit=crop',
+                'https://images.unsplash.com/photo-1614632537423-1e6c2e7e0aab?w=400&h=300&fit=crop'
+            ],
+            [
+                'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=400&h=300&fit=crop',
+                'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=400&h=300&fit=crop'
+            ]
+        ];
+
+        const imagenesActuales = [0, 0];
+
+        // Función para cambiar imágenes al hacer clic
+        function cambiarImagen(indice) {
+            imagenesActuales[indice] = (imagenesActuales[indice] + 1) % imagenesAlternativas[indice].length;
+            const img = document.getElementById('img-' + indice);
+            img.style.opacity = '0';
+            
+            setTimeout(() => {
+                img.src = imagenesAlternativas[indice][imagenesActuales[indice]];
+                img.style.transition = 'opacity 0.5s ease';
+                img.style.opacity = '1';
+            }, 300);
+        }
+
+        // Función para actualizar mensaje personalizado
+        function actualizarMensaje() {
+            const nombre = document.getElementById('nombre-usuario').value.trim();
+            const mensajeDiv = document.getElementById('mensaje-personalizado');
+            
+            if (nombre) {
+                mensajeDiv.textContent = `¡Hola ${nombre}! ⚽ Bienvenido al mundo del fútbol`;
+                mensajeDiv.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                mensajeDiv.style.color = 'white';
+            } else {
+                mensajeDiv.textContent = '¡Hola aficionado al fútbol! 👋';
+                mensajeDiv.style.background = 'white';
+                mensajeDiv.style.color = '#764ba2';
+            }
+        }
+
+        // Permitir actualizar mensaje con Enter
+        document.getElementById('nombre-usuario').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                actualizarMensaje();
+            }
         });
     </script>
 </body>
-</html>
 </html>

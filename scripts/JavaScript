@@ -1,20 +1,187 @@
-function mostrarSeccion(seccionId) {
-    // Ocultar todas las secciones
-    const secciones = document.querySelectorAll('section');
-    secciones.forEach(seccion => {
-        seccion.classList.remove('active');
-    });
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Análisis de fútbol mundial, jugadores destacados y contenido interactivo">
+    <meta name="keywords" content="fútbol, soccer, análisis, jugadores, Haaland, Mbappé, Vinicius">
+    <meta name="author" content="Miguel Sánchez">
+    <title>Fútbol con Miguel Sánchez</title>
+    
+    <!-- Google Fonts - Fuente distintiva -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Hoja de estilos externa -->
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <!-- Header con balón en movimiento -->
+    <header>
+        <div id="balon-movimiento">⚽</div>
+        <h1>⚽ Fútbol con Miguel Sánchez</h1>
+        <p>Tu espacio para el análisis del fútbol mundial</p>
+    </header>
 
-    // Quitar estado activo de los botones
-    const botones = document.querySelectorAll('nav button');
-    botones.forEach(boton => {
-        boton.classList.remove('active');
-    });
+    <!-- Navegación -->
+    <nav>
+        <ul>
+            <li><button onclick="mostrarSeccion('actual')" class="active" id="btn-actual">Fútbol Actual</button></li>
+            <li><button onclick="mostrarSeccion('interactivo')" id="btn-interactivo">Sección Interactiva</button></li>
+            <li><button onclick="mostrarSeccion('mejores')" id="btn-mejores">Top 3 Jugadores</button></li>
+            <li><button onclick="mostrarSeccion('contacto')" id="btn-contacto">Contacto</button></li>
+        </ul>
+    </nav>
 
-    // Mostrar la sección y botón elegidos
-    document.getElementById(seccionId).classList.add('active');
-    document.getElementById('btn-' + seccionId).classList.add('active');
+    <!-- Contenido principal -->
+    <main>
+        <!-- Sección: Fútbol Actual -->
+        <section id="actual" class="active">
+            <h2>El Fútbol Actual</h2>
+            <p>El fútbol moderno ha experimentado una transformación radical en los últimos años. La evolución táctica, el análisis de datos y la tecnología han revolucionado la forma en que se juega y se entiende este deporte.</p>
+            
+            <!-- Imagen decorativa -->
+            <img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=800&h=400&fit=crop" 
+                 alt="Estadio de fútbol moderno lleno de aficionados" 
+                 class="imagen-decorativa">
+            
+            <p>Hoy en día, el fútbol es más dinámico y físico que nunca. Los equipos priorizan la presión alta, la posesión controlada y las transiciones rápidas. La figura del lateral ha evolucionado para convertirse en un elemento ofensivo crucial, mientras que los mediocampistas deben ser versátiles tanto en defensa como en ataque.</p>
+            
+            <p>Las grandes ligas europeas como la Premier League, La Liga, la Serie A y la Bundesliga siguen siendo el epicentro del fútbol mundial, atrayendo a los mejores talentos del planeta. Mientras tanto, competiciones como la Champions League y la Copa Mundial continúan siendo los escenarios donde se escriben las páginas más gloriosas del fútbol.</p>
+            
+            <p>El fútbol actual también se caracteriza por la creciente importancia del aspecto mental y físico. Los jugadores modernos son atletas completos que cuidan cada detalle de su preparación, desde la nutrición hasta el descanso y la recuperación.</p>
 
-    // Volver arriba suavemente
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-}
+            <!-- Enlaces externos con accesibilidad -->
+            <div class="enlaces-externos">
+                <h3>Enlaces de interés:</h3>
+                <a href="https://www.uefa.com" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   title="Visitar sitio oficial de la UEFA - Abre en ventana nueva">
+                   🏆 UEFA Official
+                </a>
+                <a href="https://www.fifa.com" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   title="Visitar sitio oficial de FIFA - Abre en ventana nueva">
+                   🌍 FIFA Official
+                </a>
+                <a href="https://github.com/miguelinese-dot/hosting" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   title="Ver repositorio del proyecto en GitHub - Abre en ventana nueva">
+                   💻 Ver Repositorio GitHub
+                </a>
+            </div>
+        </section>
+
+        <!-- Sección Interactiva: JS Campo de texto + Intercambio de imágenes -->
+        <section id="interactivo">
+            <h2>Sección Interactiva</h2>
+            
+            <!-- Campo de texto interactivo -->
+            <div class="personalizacion">
+                <h3>🎯 Personaliza tu Mensaje</h3>
+                <label for="nombre-usuario">Introduce tu nombre:</label>
+                <input type="text" 
+                       id="nombre-usuario" 
+                       placeholder="Tu nombre aquí..." 
+                       aria-label="Campo para introducir tu nombre">
+                <button onclick="actualizarMensaje()">Actualizar Mensaje</button>
+                <div id="mensaje-personalizado">¡Hola aficionado al fútbol! 👋</div>
+            </div>
+
+            <!-- Galería de imágenes intercambiables -->
+            <h3>📸 Galería de Imágenes (Click para cambiar)</h3>
+            <p style="text-align: center; color: #667eea; font-weight: bold;">
+                Haz clic en cada imagen para ver una alternativa
+            </p>
+            
+            <div class="galeria-imagenes">
+                <div class="imagen-container" onclick="cambiarImagen(0)">
+                    <img id="img-0" 
+                         src="https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=400&h=300&fit=crop" 
+                         alt="Balón de fútbol sobre césped">
+                    <p>⚽ Balón de Fútbol</p>
+                </div>
+                
+                <div class="imagen-container" onclick="cambiarImagen(1)">
+                    <img id="img-1" 
+                         src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=400&h=300&fit=crop" 
+                         alt="Vista de estadio lleno de aficionados">
+                    <p>🏟️ Estadio Lleno</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección: Top 3 Jugadores -->
+        <section id="mejores">
+            <h2>Los 3 Mejores Jugadores del Mundo</h2>
+            <p>Estos son, en mi opinión, los tres futbolistas que están marcando la diferencia en el fútbol actual:</p>
+            
+            <div class="jugadores-grid">
+                <div class="jugador-card">
+                    <h3>🥇 Erling Haaland</h3>
+                    <p><strong>Equipo:</strong> Manchester City</p>
+                    <p><strong>Posición:</strong> Delantero</p>
+                    <p><strong>Nacionalidad:</strong> Noruega</p>
+                    <p>Una máquina goleadora imparable. Su potencia física, velocidad y instinto depredador en el área lo convierten en el delantero más letal del momento. Ha revolucionado la Premier League con números históricos.</p>
+                </div>
+
+                <div class="jugador-card">
+                    <h3>🥈 Kylian Mbappé</h3>
+                    <p><strong>Equipo:</strong> Real Madrid</p>
+                    <p><strong>Posición:</strong> Delantero</p>
+                    <p><strong>Nacionalidad:</strong> Francia</p>
+                    <p>Velocidad estratosférica y una técnica sublime. Mbappé combina la rapidez con una inteligencia táctica excepcional. Ya campeón del mundo, está destinado a dominar el fútbol en los próximos años.</p>
+                </div>
+
+                <div class="jugador-card">
+                    <h3>🥉 Vinicius Jr.</h3>
+                    <p><strong>Equipo:</strong> Real Madrid</p>
+                    <p><strong>Posición:</strong> Extremo</p>
+                    <p><strong>Nacionalidad:</strong> Brasil</p>
+                    <p>El talento brasileño en su máxima expresión. Su regate, desequilibrio y capacidad para decidir partidos importantes lo han convertido en una estrella mundial. Pieza clave en el Real Madrid.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección: Contacto -->
+        <section id="contacto">
+            <h2>Contacto</h2>
+            <div class="contacto-box">
+                <p>¿Tienes alguna pregunta, comentario o sugerencia sobre fútbol? ¿Quieres debatir sobre tácticas, jugadores o los últimos resultados?</p>
+                
+                <p>No dudes en escribirme. Me encanta intercambiar opiniones con otros aficionados al fútbol y estoy siempre abierto a nuevas perspectivas y análisis.</p>
+                
+                <p><strong>Escríbeme a:</strong></p>
+                <a href="mailto:miguel.sanchez@futbol.com" 
+                   class="email" 
+                   title="Enviar correo electrónico a Miguel Sánchez">
+                   📧 miguel.sanchez@futbol.com
+                </a>
+                
+                <p style="margin-top: 1.5rem;">Respondo todos los mensajes lo antes posible. ¡Hablemos de fútbol!</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Fútbol con Miguel Sánchez. Pasión por el fútbol mundial.</p>
+        <p>
+            Proyecto bajo 
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" 
+               target="_blank" 
+               rel="noopener noreferrer" 
+               title="Ver detalles de la Licencia Creative Commons BY-NC-SA 4.0 - Abre en ventana nueva">
+               Licencia CC BY-NC-SA 4.0
+            </a>
+        </p>
+    </footer>
+
+    <!-- Script JavaScript externo -->
+    <script src="scripts/main.js"></script>
+</body>
+</html>

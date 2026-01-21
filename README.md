@@ -1,6 +1,7 @@
 # Fútbol con Miguel Sánchez
 
 Proyecto web interactivo que presenta información sobre la actualidad del fútbol y un ranking detallado de los mejores jugadores del mundo.
+Inspirado principalmente en la web de ABC, sobretodo en los indicadores de las distintas secciones.
 
 ## Características principales
 * **Interfaz Dinámica:** Cambio entre secciones (Fútbol Actual, Top 3 Jugadores y Contacto) sin recargar el navegador.

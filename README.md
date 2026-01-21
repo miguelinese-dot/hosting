@@ -8,12 +8,13 @@ Proyecto web interactivo que presenta información sobre la actualidad del fútb
 * **Diseño Responsivo:** Estilos modernos con gradientes y tipografías limpias.
 
 ## Secciones del sitio
-1. **Fútbol Actual:** Resumen del dinamismo y la evolución de las grandes ligas europeas.
+1. **Fútbol Actual:** Resumen del dinamismo, la evolución de las grandes ligas europeas y enlaces a páginas externas interesantes.
 2. **Top 3 Jugadores:** Ranking detallado que incluye fichas técnicas de:
    * Erling Haaland
    * Kylian Mbappé
    * Vinícius Jr.
-3. **Contacto:** Formulario y enlaces para comunicación directa.
+3.**Sección interactiva** Tanto de textos como imágenes.
+4. **Contacto:** Formulario y enlaces para comunicación directa.
 
 ## Tecnologías utilizadas
 * **HTML5:** Estructura semántica del sitio.
